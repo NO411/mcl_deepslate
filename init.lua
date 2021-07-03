@@ -29,7 +29,7 @@ minetest.register_node("mcl_deepslate:deepslate", {
 	_mcl_silk_touch_drop = true,
 })
 
-local spawn_silverfish = function(pos, oldnode, oldmetadata, digger)
+local function spawn_silverfish(pos, oldnode, oldmetadata, digger)
 	if not minetest.is_creative_enabled("") then
 		minetest.add_entity(pos, "mobs_mc:silverfish")
 	end
@@ -98,12 +98,12 @@ if copper_mod then
 end
 
 local redstone_timer = 68.28
-local redstone_ore_activate = function(pos)
+local function redstone_ore_activate(pos)
 	minetest.swap_node(pos, { name = "mcl_deepslate:deepslate_with_redstone_lit" })
 	local t = minetest.get_node_timer(pos)
 	t:start(redstone_timer)
 end
-local redstone_ore_reactivate = function(pos)
+local function redstone_ore_reactivate(pos)
 	local t = minetest.get_node_timer(pos)
 	t:start(redstone_timer)
 end
