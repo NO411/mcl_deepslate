@@ -307,7 +307,8 @@ if minetest.settings:get_bool("mcl_generate_ores", true) then
 	end
 end
 
-local function register_deepslate_variant(item, desc, longdesc, texture, source)
+local function register_deepslate_variant(item, desc, longdesc)
+	local texture = desc:lower():gsub("% ", "_")
 	minetest.register_node("mcl_deepslate:deepslate_"..item, {
 		description = S(desc),
 		_doc_items_longdesc = S(longdesc),
@@ -341,14 +342,14 @@ local function register_deepslate_variant(item, desc, longdesc, texture, source)
 end
 
 local deepslate_variants = {
-	{ "cobbled", "Cobbled Deepslate", "Cobbled deepslate is a stone variant that functions similar to cobblestone or blackstone.", "cobbled_deepslate" },
-	{ "polished", "Polished Deepslate", "Polished deepslate is the stone-like polished version of deepslate.", "polished_deepslate" }, 
-	{ "bricks", "Deepslate Bricks", "Deepslate bricks are the brick version of deepslate.", "deepslate_bricks" },
-	{ "tiles", "Deepslate Tiles", "Deepslate tiles are a decorative variant of deepslate.", "deepslate_tiles" },
-	{ "chiseled", "Chiseled Deepslate", "Chiseled deepslate is the chiseled version of deepslate.", "chiseled_deepslate" },
+	{ "cobbled", "Cobbled Deepslate", "Cobbled deepslate is a stone variant that functions similar to cobblestone or blackstone." },
+	{ "polished", "Polished Deepslate", "Polished deepslate is the stone-like polished version of deepslate." }, 
+	{ "bricks", "Deepslate Bricks", "Deepslate bricks are the brick version of deepslate." },
+	{ "tiles", "Deepslate Tiles", "Deepslate tiles are a decorative variant of deepslate." },
+	{ "chiseled", "Chiseled Deepslate", "Chiseled deepslate is the chiseled version of deepslate." },
 }
 for _, dv in pairs(deepslate_variants) do
-	register_deepslate_variant(dv[1], dv[2], dv[3], dv[4])
+	register_deepslate_variant(dv[1], dv[2], dv[3])
 end
 local deepslate_craft = {
 	{ "polished", "cobbled" },
