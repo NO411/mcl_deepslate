@@ -16,7 +16,7 @@ minetest.register_node("mcl_deepslate:deepslate", {
 	_doc_items_longdesc = S("Deepslate is a stone type found deep underground in the Overworld that functions similar to regular stone but is harder than the stone."),
 	_doc_items_hidden = false,
 	tiles = { "mcl_deepslate_top.png", "mcl_deepslate_top.png", "mcl_deepslate.png" },
-    paramtype2 = "facedir",
+    	paramtype2 = "facedir",
 	is_ground_content = true,
 	stack_max = 64,
 	on_place = mcl_util.rotate_axis,
