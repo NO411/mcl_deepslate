@@ -16,7 +16,7 @@ minetest.register_node("mcl_deepslate:deepslate", {
 	_doc_items_longdesc = S("Deepslate is a stone type found deep underground in the Overworld that functions similar to regular stone but is harder than the stone."),
 	_doc_items_hidden = false,
 	tiles = { "mcl_deepslate_top.png", "mcl_deepslate_top.png", "mcl_deepslate.png" },
-    	paramtype2 = "facedir",
+	paramtype2 = "facedir",
 	is_ground_content = true,
 	stack_max = 64,
 	on_place = mcl_util.rotate_axis,
@@ -351,16 +351,11 @@ local deepslate_variants = {
 for _, dv in pairs(deepslate_variants) do
 	register_deepslate_variant(dv[1], dv[2], dv[3])
 end
-local deepslate_craft = {
-	{ "polished", "cobbled" },
-	{ "bricks", "polished" },
-	{ "tiles", "bricks" },
-} 
-for _, i in pairs(deepslate_craft) do
-	local source = "mcl_deepslate:deepslate_"..i[2]
+for i = 1, 3 do
+	local s = "mcl_deepslate:deepslate_"..deepslate_variants[i][1]
 	minetest.register_craft({
-		output = "mcl_deepslate:deepslate_"..i[1].." 4",
-		recipe = { { source, source }, { source, source } }
+		output = "mcl_deepslate:deepslate_"..deepslate_variants[i+1][1].." 4",
+		recipe = { { s, s }, { s, s } } 
 	})
 end
 for _, p in pairs({ "bricks", "tiles" }) do
