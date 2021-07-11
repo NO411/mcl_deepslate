@@ -205,7 +205,7 @@ minetest.register_ore({
 minetest.register_ore({
 	ore_type       = "scatter",
 	ore            = "mcl_core:water_source",
-	wherein        = { "mcl_core:stone", "mcl_core:andesite", "mcl_core:diorite", "mcl_core:granite", "mcl_core:dirt" },
+	wherein        = "mcl_deepslate:deepslate",
 	clust_scarcity = 9000,
 	clust_num_ores = 1,
 	clust_size     = 1,
