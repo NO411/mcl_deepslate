@@ -1,4 +1,5 @@
-local S = minetest.get_translator(minetest.get_current_modname())
+local modname = minetest.get_current_modname()
+local S = minetest.get_translator(modname)
 
 local layer_max = mcl_worlds.layer_to_y(16)
 local layer_min = mcl_vars.mg_overworld_min
@@ -10,6 +11,10 @@ local mountains = {
 	"ExtremeHills+", "ExtremeHills+_ocean", "ExtremeHills+_deep_ocean", "ExtremeHills+_underground",
 	"ExtremeHillsM", "ExtremeHillsM_ocean", "ExtremeHillsM_deep_ocean", "ExtremeHillsM_underground",
 }
+
+if minetest.get_modpath("mcl_item_id") then
+	mcl_item_id.set_mod_namespace(minetest.get_current_modname(modname))
+end
 
 minetest.register_node("mcl_deepslate:deepslate", {
 	description = S("Deepslate"),
@@ -47,6 +52,19 @@ minetest.register_node("mcl_deepslate:infested_deepslate", {
 	after_dig_node = spawn_silverfish,
 	_mcl_hardness = 0,
 	_mcl_blast_resistance = 0.5,
+})
+
+minetest.register_node("mcl_deepslate:tuff", {
+	description = S("Tuff"),
+	_doc_items_longdesc = S("Tuff is an ornamental rock formed from volcanic ash, occurring in underground blobs below Y=16."),
+	_doc_items_hidden = false,
+	tiles = { "mcl_deepslate_tuff.png" },
+	stack_max = 64,
+	groups = { pickaxey = 1, deco_block = 1 },
+	sounds = mcl_sounds.node_sound_stone_defaults(),
+	_mcl_blast_resistance = 6,
+	_mcl_hardness = 1.5,
+	_mcl_silk_touch_drop = true,
 })
 
 local function register_deepslate_ore(desc, drop, pick, xp)
@@ -191,6 +209,27 @@ minetest.register_ore({
 })
 
 minetest.register_ore({
+	ore_type       = "blob",
+	ore            = "mcl_deepslate:tuff",
+	wherein        = { "mcl_core:stone", "mcl_core:diorite", "mcl_core:andesite", "mcl_core:granite", "mcl_deepslate:deepslate" },
+	clust_scarcity = 10*10*10,
+	clust_num_ores = 58,
+	clust_size     = 7,
+	y_min          = layer_min,
+    y_max          = layer_max,
+	noise_params = {
+		offset  = 0,
+		scale   = 1,
+		spread  = {x=250, y=250, z=250},
+		seed    = 12345,
+		octaves = 3,
+		persist = 0.6,
+		lacunarity = 2,
+		flags = "defaults",
+	}
+})
+
+minetest.register_ore({
 	ore_type       = "scatter",
 	ore            = "mcl_deepslate:infested_deepslate",
 	wherein        = "mcl_deepslate:deepslate",
@@ -237,13 +276,13 @@ minetest.register_ore({
 
 
 if minetest.settings:get_bool("mcl_generate_ores", true) then
-	local stonelike = {"mcl_core:stone", "mcl_core:diorite", "mcl_core:andesite", "mcl_core:granite"}
+	local stonelike = { "mcl_core:stone", "mcl_core:diorite", "mcl_core:andesite", "mcl_core:granite" }
 	local function register_ore_mg(ore, scarcity, num, size, y_min, y_max, biomes)
 		biomes = biomes or ""
 		minetest.register_ore({
 			ore_type       = "scatter",
 			ore            = ore,
-			wherein        = "mcl_deepslate:deepslate",
+			wherein        = { "mcl_deepslate:deepslate", "mcl_deepslate:tuff" },
 			clust_scarcity = scarcity,
 			clust_num_ores = num,
 			clust_size     = size,
