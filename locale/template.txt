@@ -49,3 +49,5 @@ Polished Deepslate Slab=
 Polished Deepslate Stairs=
 Polished Deepslate Wall=
 Polished Deepslate=
+Tuff=
+Tuff is an ornamental rock formed from volcanic ash, occurring in underground blobs below Y=16.=
