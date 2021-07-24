@@ -13,7 +13,7 @@ local mountains = {
 }
 
 if minetest.get_modpath("mcl_item_id") then
-	mcl_item_id.set_mod_namespace(minetest.get_current_modname(modname))
+	mcl_item_id.set_mod_namespace(modname)
 end
 
 minetest.register_node("mcl_deepslate:deepslate", {
